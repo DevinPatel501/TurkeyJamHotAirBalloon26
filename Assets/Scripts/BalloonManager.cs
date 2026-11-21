@@ -7,10 +7,10 @@ public class BalloonManager : MonoBehaviour
     public GameObject basket;
     public float maxAngle = 30f;
 
-    public string enemyTag = "Bird";
+    public LayerMask enemyLayer;
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -22,22 +22,23 @@ public class BalloonManager : MonoBehaviour
             // Handle balloon destruction or game over logic here
             Debug.Log("Balloon destroyed!");
         }
-        else if(Mathf.Abs(currentAngle) > maxAngle)
+        else if (Mathf.Abs(currentAngle) > maxAngle)
         {
-            Debug.Log("Balloon is tipping over!"+ currentAngle);
+            Debug.Log("Balloon is tipping over!" + currentAngle);
         }
         else
         {
-                    Debug.Log("Balloon is stable.");
+            Debug.Log("Balloon is stable.");
 
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+   private void OnTriggerEnter2D(Collider2D other)
+{
+    if (other.CompareTag("Bird"))
     {
-        if (collision.gameObject.CompareTag(enemyTag))
-        {
-            health -= 1f;
-        }
+        health -= 1f;
+        Debug.Log("Balloon has taken damage. Health: " + health);
     }
+}
 }

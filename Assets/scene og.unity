@@ -752,10 +752,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f774d507543842e489774d79bccc6b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 1
   basket: {fileID: 729234899}
   maxAngle: 27
-  enemyTag: Bird
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1495365229
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,7 +860,7 @@ GameObject:
   - component: {fileID: 1508936416}
   m_Layer: 7
   m_Name: Bird
-  m_TagString: Untagged
+  m_TagString: Bird
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -893,7 +895,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
