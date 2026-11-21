@@ -58,7 +58,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         // Update burner angle based on input
         burnerAngle = Mathf.Lerp(burnerAngle, xDirection * 45f, Time.fixedDeltaTime * 5f);
 
-        burner.transform.localRotation = Quaternion.Euler(0, 0, burnerAngle);
+        burner.transform.localRotation = Quaternion.Euler(0, 0, -burnerAngle);
 
         // Prevent temperature and propane from exceeding limits
         temperature = Mathf.Clamp(temperature, minTemperature, maxTemperature);
