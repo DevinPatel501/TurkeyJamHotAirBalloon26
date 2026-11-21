@@ -16,7 +16,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
    public float speed = 0.1f; 
 
    public float gravMag = 0.2f;
-
+   public float buoyancyForce = 0.15f;
     private float xDirection;
     private float yDirection;
 
@@ -54,9 +54,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
         Vector2 gravityForce = new Vector2(0, -gravMag);
 
-        Vector2 totalForce = moveDirection - gravityForce;
+        Vector2 liftForce = new Vector2(0, buoyancyForce);
+
 
         rb.AddForceAtPosition(moveDirection, balloon.transform.position);
+        rb.AddForceAtPosition(liftForce, balloon.transform.position);
         rb.AddForce(gravityForce);
 
     }
