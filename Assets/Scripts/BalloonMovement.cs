@@ -2,19 +2,37 @@ using UnityEngine;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
-   public float speed = 0.1f; 
    private Rigidbody2D rb;
+
+
+
+   
+   public GameObject balloon;
+   public GameObject basket;
+
+   public float balloonMass = 1f;
+   public float basketMass = 6f;
+
+   public float speed = 0.1f; 
 
    public float gravMag = 0.2f;
 
     private float xDirection;
     private float yDirection;
+
+    private Vector2 centerOfMassOffset;
    
   
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        centerOfMassOffset = 
+        ((balloonMass * balloon.transform.localPosition) + (basketMass * basket.transform.localPosition) )/ 
+        (balloonMass + basketMass);
+
+        rb.centerOfMass = centerOfMassOffset;
     }
 
 
@@ -34,11 +52,12 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
 
 
-        Vector2 gravityForce = new Vector2(0, gravMag);
+        Vector2 gravityForce = new Vector2(0, -gravMag);
 
         Vector2 totalForce = moveDirection - gravityForce;
 
-        rb.AddForce(totalForce);
+        rb.AddForceAtPosition(moveDirection, balloon.transform.position);
+        rb.AddForce(gravityForce);
 
     }
 }
