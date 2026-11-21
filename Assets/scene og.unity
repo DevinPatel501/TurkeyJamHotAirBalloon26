@@ -145,7 +145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59823771}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
   m_LocalPosition: {x: -0.54042953, y: -1.6887891, z: -0.53926575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -154,7 +154,7 @@ Transform:
   - {fileID: 729234900}
   - {fileID: 2145684678}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
 --- !u!114 &59823773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,8 +171,9 @@ MonoBehaviour:
   basket: {fileID: 729234899}
   balloonMass: 1.5
   basketMass: 0.1
-  speed: 3
-  gravMag: 1
+  speed: 1
+  gravMag: 2
+  buoyancyForce: 2
 --- !u!50 &59823774
 Rigidbody2D:
   serializedVersion: 5
@@ -473,6 +474,7 @@ MonoBehaviour:
   basketMass: 6
   speed: 5
   gravMag: 2
+  buoyancyForce: 0.15
 --- !u!61 &1173632280
 BoxCollider2D:
   m_ObjectHideFlags: 0
