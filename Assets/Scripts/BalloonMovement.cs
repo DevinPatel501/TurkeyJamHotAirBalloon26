@@ -2,64 +2,92 @@ using UnityEngine;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
-   private Rigidbody2D rb;
+    private Rigidbody2D rb;
 
+    public float speed = 2f;
+    public float buoyancyForce = 0f;
 
-
-   
-   public GameObject balloon;
-   public GameObject basket;
-
-   public float balloonMass = 1f;
-   public float basketMass = 6f;
-
-   public float speed = 0.1f; 
-
-   public float gravMag = 0.2f;
-   public float buoyancyForce = 0.15f;
     private float xDirection;
     private float yDirection;
 
-    private Vector2 centerOfMassOffset;
-   
-  
+    public float propane = 100f;
+    public float temperature = 50.2f;
+    public float heatingRate = 8f;
+    public float coolingRate = 3f;
+    public float fuelConsumptionRate = 5f;
+
+    public float minTemperature = 20f;
+    public float maxTemperature = 100f;
+
+    public float liftMultiplier = 0.13f;
+    public float maxVerticalSpeed = 3f;
+
+    public float burnerAngle = 0f;
+
+    private bool burnerActive;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        centerOfMassOffset = 
-        ((balloonMass * balloon.transform.localPosition) + (basketMass * basket.transform.localPosition) )/ 
-        (balloonMass + basketMass);
-
-        rb.centerOfMass = centerOfMassOffset;
     }
 
-
-    // Update is called once per frame
     void Update()
     {
-         xDirection = Input.GetAxisRaw("Horizontal");
-         yDirection= Input.GetAxisRaw("Vertical");
-
-
+        xDirection = Input.GetAxisRaw("Horizontal");
+        yDirection = Input.GetAxisRaw("Vertical");
     }
 
     void FixedUpdate()
     {
-        
-        Vector2 moveDirection = new Vector2(xDirection,yDirection).normalized * speed;
+        // Heat balloon while holding W
+        burnerActive = yDirection > 0 && propane > 0 && temperature < maxTemperature;
 
+        if (burnerActive)
+        {
+            temperature += heatingRate * Time.fixedDeltaTime;
+            propane -= fuelConsumptionRate * Time.fixedDeltaTime;
+        }
+        else
+        {
+            // Cool balloon when burner is off
+            temperature -= coolingRate * Time.fixedDeltaTime;
+        }
 
+        // Update burner angle based on input
+        burnerAngle = Mathf.Lerp(burnerAngle, xDirection * 45f, Time.fixedDeltaTime * 5f);
 
-        Vector2 gravityForce = new Vector2(0, -gravMag);
+        // Prevent temperature and propane from exceeding limits
+        temperature = Mathf.Clamp(temperature, minTemperature, maxTemperature);
+        propane = Mathf.Max(0f, propane);
+        burnerAngle = Mathf.Clamp(burnerAngle, -45f, 45f);
+
+        // Horizontal movement
+        float burnerAngleRadians = burnerAngle * Mathf.Deg2Rad;
+        Vector2 burnerForce = new Vector2(
+            Mathf.Sin(burnerAngleRadians),
+            Mathf.Cos(burnerAngleRadians)
+        ) * speed;
+
+        // Buoyancy based on temperature
+        buoyancyForce = (temperature - minTemperature) * liftMultiplier;
 
         Vector2 liftForce = new Vector2(0, buoyancyForce);
 
+        // Apply forces
+        if (burnerActive)
+        {
+            rb.AddForce(burnerForce);
+        }
+        rb.AddForce(liftForce);
 
-        rb.AddForceAtPosition(moveDirection, balloon.transform.position);
-        rb.AddForceAtPosition(liftForce, balloon.transform.position);
-        rb.AddForce(gravityForce);
+        Vector2 velocity = rb.linearVelocity;
 
+        velocity.y = Mathf.Clamp(
+            velocity.y,
+            -maxVerticalSpeed,
+            maxVerticalSpeed
+        );
+
+        rb.linearVelocity = velocity;
     }
 }
