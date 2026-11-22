@@ -38,13 +38,13 @@ public class EnemySpawner : MonoBehaviour
         {
             spawnPosition = new Vector2(
             cameraPosition.x + spawnOffsetX,
-            cameraPosition.y + Random.Range(-spawnRange, spawnRange));
+            cameraPosition.y + Random.Range(0, spawnRange));
         }
         else
         {
             spawnPosition = new Vector2(
             cameraPosition.x - spawnOffsetX,
-            cameraPosition.y + Random.Range(-spawnRange, spawnRange));
+            cameraPosition.y + Random.Range(0, spawnRange));
         }
         GameObject newBird = Instantiate(birdPrefab, spawnPosition, Quaternion.identity);
 
@@ -53,6 +53,6 @@ public class EnemySpawner : MonoBehaviour
         BirdMovement movement = newBird.GetComponent<BirdMovement>();
 
         movement.isLeftToRight = (LorR == 0);
-        Instantiate(newBird, spawnPosition, Quaternion.identity);
+        movement.speed =   5 *(movement.isLeftToRight ? 1 : -1);
     }
 }

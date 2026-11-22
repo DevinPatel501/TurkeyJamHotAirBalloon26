@@ -48,5 +48,8 @@ public class BalloonManager : MonoBehaviour
     else if(other.CompareTag("Ship")){
         gameManager.WinGame();
     }
+    else if(other.CompareTag("Bounds")){
+        gameManager.LoseGame();
+    }
 }
 }

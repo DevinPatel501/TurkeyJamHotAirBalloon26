@@ -10,16 +10,17 @@ public class BirdMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-            if(!isLeftToRight)
-        {
-            speed = -speed;
-        }
+
     }
 
     void FixedUpdate()
     {
-    
-        direction = new Vector2(speed, 0);
+        direction = new Vector2(isLeftToRight ? speed : -speed, 0f);
         rb.MovePosition(rb.position + direction * Time.fixedDeltaTime);
+
+        if(transform.position.x < -9.5 || transform.position.x > 28)
+        {
+            Destroy(gameObject);
+        }
     }
 }
