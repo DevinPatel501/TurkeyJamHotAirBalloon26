@@ -5,6 +5,9 @@ public class GameManager : MonoBehaviour
 
 
     private GameState currentState;
+
+    public GameObject winPanel;
+    public GameObject losePanel;
     void Start()
     {
         currentState = GameState.Playing;
@@ -14,14 +17,25 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-
+        bool isRestarting = Input.GetKeyDown(KeyCode.R);
+        if(isRestarting && currentState != GameState.Playing)
+        {
+            restartGame();
+        }
     }
 
+    void restartGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(
+            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
+        );
+    }
     public void WinGame()
     {
         if(currentState == GameState.Playing)
         {
             currentState = GameState.Won;
+            winPanel.SetActive(true);
             Debug.Log("You won the game!");
         }
     }
@@ -30,6 +44,7 @@ public class GameManager : MonoBehaviour
         if(currentState == GameState.Playing)
         {
             currentState = GameState.Lost;
+            losePanel.SetActive(true);
             Debug.Log("You lost the game!");
         }
        

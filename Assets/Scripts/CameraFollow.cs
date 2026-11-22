@@ -21,4 +21,6 @@ public class CameraFollow : MonoBehaviour
             smoothSpeed * Time.deltaTime
         );
     }
+
+
 }
