@@ -8,9 +8,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject winPanel;
     public GameObject losePanel;
+
+    public AudioClip lose;
+     AudioSource endNoise;
     void Start()
     {
         currentState = GameState.Playing;
+        endNoise = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -50,6 +54,7 @@ public class GameManager : MonoBehaviour
 
         if (currentState == GameState.Playing)
         {
+            endNoise.PlayOneShot(lose);
             currentState = GameState.Lost;
             Time.timeScale = 0f;
 

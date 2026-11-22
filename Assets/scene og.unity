@@ -321,6 +321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 200205094}
   - component: {fileID: 200205095}
+  - component: {fileID: 200205096}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -357,6 +358,104 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winPanel: {fileID: 1123107471}
   losePanel: {fileID: 539265694}
+  lose: {fileID: 8300000, guid: cbd1eeef801cc4d6795e818dc48ab871, type: 3}
+--- !u!82 &200205096
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200205093}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &428662480
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,6 +1220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdPrefab: {fileID: 8032069801512439831, guid: 9f666d653316d47de9b0964a04f0cd53, type: 3}
   wormPrefab: {fileID: 9161215078617152065, guid: d5f97ce1458ae4236ba2c2fde1048b00, type: 3}
+  rockPrefab: {fileID: 5234636731046104848, guid: 6e3147779446e4d86b1cbbe5dfe0f65c, type: 3}
   spawnInterval: 2
   spawnRange: 10
 --- !u!4 &684336894
