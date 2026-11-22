@@ -4,6 +4,8 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject birdPrefab;
     public GameObject wormPrefab;
+
+    public GameObject rockPrefab;
     public float spawnInterval = 2f;
     private float spawnTimer = 0f;
 
@@ -20,9 +22,11 @@ public class EnemySpawner : MonoBehaviour
         spawnTimer += Time.deltaTime;
         if (spawnTimer >= spawnInterval)
         {
-            if(Camera.main.transform.position.y < 0){
-            SpawnBird();
-            spawnTimer = 0f;}
+            if (Camera.main.transform.position.y < 0)
+            {
+                SpawnBird();
+                spawnTimer = 0f;
+            }
             else
             {
                 spawnWorm();
@@ -53,16 +57,25 @@ public class EnemySpawner : MonoBehaviour
             cameraPosition.x - spawnOffsetX,
             cameraPosition.y + Random.Range(0, spawnRange));
         }
-        GameObject newWorm = Instantiate(wormPrefab, spawnPosition, Quaternion.identity);
+        int rock = Random.Range(0, 2);
 
+        GameObject newWorm;
+        if (rock == 1)
+        {
+            newWorm = Instantiate(rockPrefab, spawnPosition, Quaternion.identity);
+        }
+        else
+        {
+            newWorm = Instantiate(wormPrefab, spawnPosition, Quaternion.identity);
+        }
         newWorm.GetComponent<SpriteRenderer>().flipX = (LorR == 0);
 
         BirdMovement movement = newWorm.GetComponent<BirdMovement>();
 
-        
+
 
         movement.isLeftToRight = (LorR == 0);
-        movement.speed =   6;
+        movement.speed = 6;
     }
 
     private void SpawnBird()
@@ -87,13 +100,22 @@ public class EnemySpawner : MonoBehaviour
             cameraPosition.x - spawnOffsetX,
             cameraPosition.y + Random.Range(0, spawnRange));
         }
-        GameObject newBird = Instantiate(birdPrefab, spawnPosition, Quaternion.identity);
 
+        int rock = Random.Range(0, 2);
+        GameObject newBird;
+        if (rock == 1)
+        {
+            newBird = Instantiate(rockPrefab, spawnPosition, Quaternion.identity);
+        }
+        else
+        {
+            newBird = Instantiate(birdPrefab, spawnPosition, Quaternion.identity);
+        }
         newBird.GetComponent<SpriteRenderer>().flipX = (LorR == 0);
 
         BirdMovement movement = newBird.GetComponent<BirdMovement>();
 
         movement.isLeftToRight = (LorR == 0);
-        movement.speed =   5;
+        movement.speed = 5;
     }
 }
