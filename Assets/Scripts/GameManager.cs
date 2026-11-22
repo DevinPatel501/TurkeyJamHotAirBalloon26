@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject losePanel;
 
     public AudioClip lose;
+    public AudioClip win;
      AudioSource endNoise;
     void Start()
     {
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
         {
             currentState = GameState.Won;
             Time.timeScale = 0f;
+            endNoise.PlayOneShot(win);
 
             winPanel.SetActive(true);
             Debug.Log("You won the game!");
