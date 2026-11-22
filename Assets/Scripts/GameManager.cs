@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     {
 
         bool isRestarting = Input.GetKeyDown(KeyCode.R);
-        if(isRestarting && currentState != GameState.Playing)
+        if (isRestarting && currentState != GameState.Playing)
         {
             restartGame();
         }
@@ -26,28 +26,39 @@ public class GameManager : MonoBehaviour
 
     void restartGame()
     {
+        Time.timeScale = 1f;
+
         UnityEngine.SceneManagement.SceneManager.LoadScene(
             UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
         );
     }
     public void WinGame()
     {
-        if(currentState == GameState.Playing)
+        if (currentState == GameState.Playing)
         {
             currentState = GameState.Won;
+            Time.timeScale = 0f;
+
             winPanel.SetActive(true);
             Debug.Log("You won the game!");
+
         }
+
     }
-   public void LoseGame()
+    public void LoseGame()
     {
-        if(currentState == GameState.Playing)
+
+        if (currentState == GameState.Playing)
         {
             currentState = GameState.Lost;
+            Time.timeScale = 0f;
+
             losePanel.SetActive(true);
             Debug.Log("You lost the game!");
+
         }
-       
+
+
     }
     public enum GameState
     {

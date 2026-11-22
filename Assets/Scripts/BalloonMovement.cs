@@ -19,25 +19,59 @@ public class NewMonoBehaviourScript : MonoBehaviour
     private float xDirection;
     private float yDirection;
 
+
+    public AudioClip flameOnSound;
+    public AudioClip flameOffSound;
+
+    public AudioClip flameLoopSound;
+
+    private AudioSource audioSource;
+    private bool wasBurnerActive;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
         xDirection = Input.GetAxisRaw("Horizontal");
         yDirection = Input.GetAxisRaw("Vertical");
+
+        bool burnerActive = yDirection > 0;
+
+        burner.SetActive(burnerActive);
+
+        if (burnerActive && !wasBurnerActive)
+        {
+            audioSource.PlayOneShot(flameOnSound);
+            audioSource.clip = flameLoopSound;
+            audioSource.loop = true;
+            audioSource.Play();
+
+
+        }
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            audioSource.Stop();
+            audioSource.PlayOneShot(flameOffSound);
+        }
+
+        wasBurnerActive = burnerActive;
+
+
+
     }
 
     void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
 
-        bool burnerActive = yDirection > 0 ;
+        bool burnerActive = yDirection > 0;
         // && propane > 0;
 
-        // Rotate burner using A/D
         burnerAngle = Mathf.Lerp(
             burnerAngle,
             xDirection * 45f,
@@ -70,7 +104,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
             rb.AddForce(Vector2.down * upwardBraking);
         }
 
-        // Limit vertical velocity
         Vector2 velocity = rb.linearVelocity;
 
         velocity.y = Mathf.Clamp(

@@ -6,16 +6,23 @@ public class BalloonManager : MonoBehaviour
     public float health = 10f;
 
     public GameObject basket;
+
     public float maxAngle = 30f;
 
     public LayerMask enemyLayer;
 
     public GameManager gameManager;
 
+     AudioSource balloonAudio;
+
+    public AudioClip damageSound;
+
+
+
 
     void Start()
     {
-
+        balloonAudio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -44,12 +51,15 @@ public class BalloonManager : MonoBehaviour
     {
         health -= 1f;
         Debug.Log("Balloon has taken damage. Health: " + health);
+        balloonAudio.Stop();
+        balloonAudio.PlayOneShot(damageSound);
     }
     else if(other.CompareTag("Ship")){
         gameManager.WinGame();
     }
     else if(other.CompareTag("Bounds")){
         gameManager.LoseGame();
+        balloonAudio.Stop();
     }
 }
 }
