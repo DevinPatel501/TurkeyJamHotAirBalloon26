@@ -6,6 +6,10 @@ public class BirdMovement : MonoBehaviour
     public float speed = 2f;
 
     public bool isLeftToRight = true;
+
+    public float minX = -3f;
+    public float maxX = 3f;
+
     Vector2 direction;
     void Start()
     {
@@ -18,7 +22,7 @@ public class BirdMovement : MonoBehaviour
         direction = new Vector2(isLeftToRight ? speed : -speed, 0f);
         rb.MovePosition(rb.position + direction * Time.fixedDeltaTime);
 
-        if(transform.position.x < -9.5 || transform.position.x > 28)
+        if(transform.position.x < minX || transform.position.x > maxX)
         {
             Destroy(gameObject);
         }

@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject birdPrefab;
+    public GameObject wormPrefab;
     public float spawnInterval = 2f;
     private float spawnTimer = 0f;
 
@@ -19,9 +20,49 @@ public class EnemySpawner : MonoBehaviour
         spawnTimer += Time.deltaTime;
         if (spawnTimer >= spawnInterval)
         {
+            if(Camera.main.transform.position.y < 0){
             SpawnBird();
-            spawnTimer = 0f;
+            spawnTimer = 0f;}
+            else
+            {
+                spawnWorm();
+                spawnTimer = 0f;
+            }
         }
+    }
+
+    private void spawnWorm()
+    {
+        Vector2 cameraPosition = Camera.main.transform.position;
+        Vector2 spawnPosition;
+        float spawnOffsetX = Camera.main.orthographicSize * Camera.main.aspect + 1f;
+
+
+
+
+        int LorR = Random.Range(0, 2);
+        if (LorR == 1)
+        {
+            spawnPosition = new Vector2(
+            cameraPosition.x + spawnOffsetX,
+            cameraPosition.y + Random.Range(0, spawnRange));
+        }
+        else
+        {
+            spawnPosition = new Vector2(
+            cameraPosition.x - spawnOffsetX,
+            cameraPosition.y + Random.Range(0, spawnRange));
+        }
+        GameObject newWorm = Instantiate(wormPrefab, spawnPosition, Quaternion.identity);
+
+        newWorm.GetComponent<SpriteRenderer>().flipX = (LorR == 0);
+
+        BirdMovement movement = newWorm.GetComponent<BirdMovement>();
+
+        
+
+        movement.isLeftToRight = (LorR == 0);
+        movement.speed =   6;
     }
 
     private void SpawnBird()
@@ -53,6 +94,6 @@ public class EnemySpawner : MonoBehaviour
         BirdMovement movement = newBird.GetComponent<BirdMovement>();
 
         movement.isLeftToRight = (LorR == 0);
-        movement.speed =   5 *(movement.isLeftToRight ? 1 : -1);
+        movement.speed =   5;
     }
 }

@@ -29,7 +29,7 @@ public class BalloonManager : MonoBehaviour
         }
         else if (Mathf.Abs(currentAngle) > maxAngle)
         {
-            Debug.Log("Balloon is tipping over!" + currentAngle);
+            // Debug.Log("Balloon is tipping over!" + currentAngle);
         }
         else
         {
