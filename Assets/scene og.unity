@@ -359,6 +359,7 @@ MonoBehaviour:
   winPanel: {fileID: 1123107471}
   losePanel: {fileID: 539265694}
   lose: {fileID: 8300000, guid: cbd1eeef801cc4d6795e818dc48ab871, type: 3}
+  win: {fileID: 8300000, guid: 8837ce1d01665479b9614c546d356da5, type: 3}
 --- !u!82 &200205096
 AudioSource:
   m_ObjectHideFlags: 0
